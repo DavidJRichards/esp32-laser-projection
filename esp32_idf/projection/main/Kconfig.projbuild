@@ -1,0 +1,49 @@
+menu "Example Configuration"
+
+     config ENABLE_GPIO_Z
+        int "Enable Z output GPIO number"
+        range 0 34
+        default 22
+        help
+            GPIO number (IOxx) to enable Z output on and off.
+
+            Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used to blink.
+
+            GPIOs 35-39 are input-only so cannot be used as outputs.
+
+
+    choice EXAMPLE_DAC_CHANNEL_X
+        bool "DAC Channel X Num"
+        default EXAMPLE_DAC_CHANNEL_X1
+        help
+            The channel of X DAC used in this example.
+
+        config EXAMPLE_DAC_CHANNEL_X1
+            bool "DAC Channel 1 (GPIO25)"
+        config EXAMPLE_DAC_CHANNEL_X2
+            bool "DAC Channel 2 (GPIO26)"
+    endchoice
+
+    config EXAMPLE_DAC_CHANNEL_X
+        int
+        default 1 if EXAMPLE_DAC_CHANNEL_X1
+        default 2 if EXAMPLE_DAC_CHANNEL_X2
+
+    choice EXAMPLE_DAC_CHANNEL_Y
+        bool "DAC Channel Y Num"
+        default EXAMPLE_DAC_CHANNEL_Y2
+        help
+            The channel of Y DAC used in this example.
+
+        config EXAMPLE_DAC_CHANNEL_Y1
+            bool "DAC Channel 1 (GPIO25)"
+        config EXAMPLE_DAC_CHANNEL_Y2
+            bool "DAC Channel 2 (GPIO26)"
+    endchoice
+
+    config EXAMPLE_DAC_CHANNEL_Y
+        int
+        default 1 if EXAMPLE_DAC_CHANNEL_Y1
+        default 2 if EXAMPLE_DAC_CHANNEL_Y2
+
+endmenu
